@@ -1,0 +1,94 @@
+<div class="container">
+  <legend>Reactive</legend>
+  <div class="row">
+    <div class="col col-md-8" style="overflow-y: scroll;">
+      <form [formGroup]="reactiveForm" (ngSubmit)="submit()">
+        <div class="mb-3">
+          <label for="firstname" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstname" placeholder="Enter First Name" formControlName="firstName">
+          <div class="alert alert-danger" *ngIf="firstName?.invalid && (firstName?.touched || firstName?.dirty)">
+            <span *ngIf="firstName?.errors?.['required']">First Name is required</span>
+            <span *ngIf="firstName?.errors?.['noSpaceAllowed']">No space allowed</span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="lastname" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" formControlName="lastName">
+          <div class="alert alert-danger" *ngIf="lastName?.invalid && (lastName?.touched || lastName?.dirty)">
+            <span *ngIf="lastName?.errors?.['required']">Last Name is required</span>
+          </div>
+        </div>
+        <div class="mb-3" formGroupName="contacts">
+          <div class="row">
+            <div class="col col-md-4 offset-md-4">
+              <div class="mb-3">
+                <label for="contactType" class="form-label">Prefered Contact Type</label>
+                <select class="form-select" aria-label="Default select example" formControlName="contactType" >
+                  <option value="-1">-Select-</option>
+                  <option value="email">Email</option>
+                  <option value="phone">Phone</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="contactType?.invalid && (contactType?.touched || contactType?.dirty)">
+                  <span *ngIf="contactType?.errors?.['emailOrPhoneRequired']">Email or Phone must be Selected</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-6">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" formControlName="email">
+              </div>
+            </div>
+            <div class="col col-md-6">
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="number" class="form-control" id="phone" placeholder="Enter Phone Number" formControlName="phone">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3" formArrayName="skills">
+          <div class="row">
+            <div class="col col-md-4 offset-md-4">
+              <button type="button" class="btn btn-primary" (click)="addSkillFormGroup()"> Add Skill</button>
+            </div>
+          </div>
+          <ng-container *ngFor="let skillForm of skillForms.controls;index as i">
+            <div class="row" [formGroupName]="i">
+              <div class="col col-md-5">
+                <div class="mb-3">
+                  <label [for]="'programLanguage'+i" class="form-label">Programming Language</label>
+                  <input type="text" class="form-control" [id]="'programLanguage'+i" placeholder="Programming Language" formControlName="programLanguage">
+                  <div class="alert alert-danger" *ngIf="getProgrammingLang(i)?.invalid && (getProgrammingLang(i)?.touched || getProgrammingLang(i)?.dirty)">
+                    <span *ngIf="getProgrammingLang(i)?.errors?.['required']">Field is Required</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-md-5">
+                <div class="mb-3">
+                  <label [for]="'experience'+i" class="form-label">Experience</label>
+                  <input type="text" class="form-control" [id]="'experience'+i" placeholder="Enter First Name" formControlName="experience">
+                </div>
+              </div>
+              <div class="col col-md-2 mt-4">
+                <div class="mb-3">
+                  <button class="btn btn-danger btn-sm" (click)="removeSkill(i)">Delete Skill</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+        <button type="button" class="btn btn-primary" (click)="setValue()">Set Value</button>
+      </form>
+    </div>
+    <div class="col col-md-2">
+      <div style="position: fixed;">
+        {{preview}}
+      </div>
+    </div>
+  </div>
+</div>

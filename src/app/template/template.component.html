@@ -1,0 +1,166 @@
+<form class="border p-3 rounded-3" #templateForm="ngForm" (ngSubmit)="submit(templateForm)">
+  <div class="row g-0">
+    <div class="col text-center p-2 mb-3 bg-light">
+      <span class="fs-3">Register</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-3">
+      <label for="firstname" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="firstname" name="FirstName" required noSpaceValidator
+        pattern="^[a-zA-Z_ ]+$" minlength="3" ngModel #FirstName="ngModel" />
+      <div class="form-text text-danger" *ngIf="FirstName.invalid && (FirstName?.touched || FirstName?.dirty)">
+        <span *ngIf="FirstName.errors?.['required']">First Name is Required</span>
+        <span *ngIf="FirstName.errors?.['minlength'] && !FirstName.errors?.['pattern']">First Name should be greater
+          than 3</span>
+        <span *ngIf="FirstName.errors?.['noSpaceValidator']">{{FirstName.errors?.['noSpaceValidator']}}</span>
+        <span *ngIf="FirstName.errors?.['pattern']">Only characters are allowed</span>
+      </div>
+    </div>
+    <div class="col mb-3">
+      <label for="lastname" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="lastname" name="LastName" required minlength="3" noSpaceValidator ngModel
+        #LastName="ngModel" />
+      <div class="form-text text-danger" *ngIf="LastName?.touched || LastName?.dirty">
+        <span *ngIf="LastName.errors?.['required']">Last Name is Required</span>
+        <span *ngIf="LastName.errors?.['minlength']">Last Name should be greater than 3</span>
+        <span *ngIf="LastName.errors?.['noSpaceValidator']">{{LastName.errors?.['noSpaceValidator']}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="row" formGroupName="address">
+    <div class="col mb-3">
+      <label class="form-check-inline">Address Type</label>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="permanent" value="permanent" formControlName="addressType"
+          (change)="triggerExpiryValidator()">
+        <label for="permanent" class="form-check-label">Permanent</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="temporary" value="temporary" formControlName="addressType"
+          (change)="triggerExpiryValidator()">
+        <label for="temporary" class="form-check-label">temporary</label>
+      </div>
+      <label class="form-check-inline" for="inlineRadio2" *ngIf="AddressType?.value=='temporary'">Expiry Date</label>
+      <div class="form-check form-check-inline">
+        <input type="date" class="form-control" id="dateInput1" formControlName="expiryDate"
+          *ngIf="AddressType?.value=='temporary'">
+      </div>
+      <div class="form-text text-danger">
+        <span *ngIf="AddressType.errors?.['required']"> Pick One Option</span>
+        <span
+          *ngIf="ExpiryDate.errors?.['date_error'] && ExpiryDate?.touched">{{ExpiryDate.errors?.['date_error']}}</span>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div class="row" formGroupName="address">
+    <div class="col mb-3">
+      <label for="address" class="form-label">Street Address</label>
+      <input type="text" name="streetAddress" id="address" class="form-control" formControlName="streetAddress">
+      <div class="form-text text-danger" *ngIf="(StreetAddress?.touched || StreetAddress?.dirty)">
+        <span *ngIf="StreetAddress.errors?.['required']">Address is Required</span>
+      </div>
+    </div>
+  </div>
+  <div class="row" formGroupName="address">
+    <div class="col mb-3">
+      <label for="city" class="form-label">City</label>
+      <input type="text" name="city" id="city" class="form-control" formControlName="city">
+      <div class="form-text text-danger" *ngIf="(City?.touched || City?.dirty)">
+        <span *ngIf="City.errors?.['required']">City is Required</span>
+      </div>
+    </div>
+    <div class="col mb-3">
+      <label for="state" class="form-label">State</label>
+      <select id="state" class="form-control" formControlName="state">
+        <option selected [ngValue]="">Choose...</option>
+        <option *ngFor="let state of states" [value]="state">{{state}}</option>
+      </select>
+      <div class="form-text text-danger" *ngIf="(State?.touched || State?.dirty)">
+        <span *ngIf="State.errors?.['required']">State is Required</span>
+      </div>
+    </div>
+    <div class="col mb-3">
+      <label for="zipcode" class="form-label">Zipcode</label>
+      <input type="text" name="zipcode" id="zipcode" class="form-control" formControlName="zipcode">
+      <div class="form-text text-danger" *ngIf="(Zipcode?.touched || Zipcode?.dirty)">
+        <span *ngIf="Zipcode.errors?.['required']">Zipcode is Required</span>
+        <span *ngIf="Zipcode.errors?.['pattern']">Value should be 5 digits</span>
+      </div>
+    </div>
+  </div>
+  <div class="col" formArrayName="skills">
+    <label for="skill">Skills</label>
+    <div class="row gx-5" *ngFor="let skill of Skills.controls;index as i">
+      <div class="col">
+        <input type="text" name="skill" id="skill" class="form-control mb-1" formControlName="{{i}}">
+        <div class="form-text text-danger" *ngIf="(Skills?.touched || Skills?.dirty)">
+          <span *ngIf="Skills.errors?.['required']">Skills is Required</span>
+        </div>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeSkill(i)" *ngIf="Skills.length>1">Remove Skills</button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-sm btn-outline-primary mt-1 ms-1" (click)="addSkill()">Add Skills</button>
+  </div> -->
+
+  <div class="row">
+    <div class="col mb-3">
+      <label for="mobile" class="form-label">Mobile Number</label>
+      <input type="text" name="Mobile" id="mobile" class="form-control" required pattern="[7-9][0-9]{9}$" ngModel
+        #Mobile="ngModel" />
+      <div class="form-text text-danger" *ngIf="Mobile?.touched || Mobile?.dirty">
+        <span *ngIf="Mobile.errors?.['required']">Mobile is Required</span>
+        <span *ngIf="Mobile.errors?.['pattern']">Invaild Mobile Number</span>
+      </div>
+    </div>
+    <div class="col ps-3">
+      <div class="m-1">Gender</div>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="male" value="male" name="gender" required ngModel
+          #Gender="ngModel" />
+        <label for="male" class="form-check-label">Male</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="female" value="female" name="gender" required ngModel
+          #Gender="ngModel" />
+        <label for="female" class="form-check-label">Female</label>
+      </div>
+      <div class="form-text text-danger" *ngIf="Gender.errors?.['required']">
+        Select Gender
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-3">
+      <label for="pwd" class="form-label">Password</label>
+      <input type="password" class="form-control" name="Pwd" id="pwd" required minlength="4" maxlength="12" ngModel
+        #Pwd="ngModel" />
+      <div class="form-text text-danger" *ngIf="Pwd?.touched || Pwd?.dirty">
+        <span *ngIf="Pwd.errors?.['required']">Please Enter Password</span>
+        <span *ngIf="Pwd.errors?.['minlength']">Password should be greater than 4</span>
+      </div>
+    </div>
+    <div class="col mb-3">
+      <label for="cpwd" class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" name="Cpwd" id="cpwd" required minlength="4" maxlength="15"
+        appConfirmPassword ngModel #Cpwd="ngModel" />
+      <div class="form-text text-danger" *ngIf="Cpwd?.touched || Cpwd?.dirty">
+        <span *ngIf="Cpwd.errors?.['required']">Please Enter Confirm Password</span>
+        <span *ngIf="Cpwd.errors?.['appConfirmPassword']">{{Cpwd.errors?.['appConfirmPassword']}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary" [disabled]="!templateForm.valid">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
